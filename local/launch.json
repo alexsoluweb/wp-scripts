@@ -1,0 +1,56 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "XDebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            "xdebugSettings": {
+                "max_depth": 50,
+                "max_data": 0,
+                "max_children": 200
+            },
+            "maxConnections": 1
+        },
+        {
+            "name": "Launch currently open script with Xdebug",
+            "type": "php",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${workspaceFolder}",
+            "port":9003,
+			"xdebugSettings": {
+                "max_depth": 50,
+                "max_data": 0,
+                "max_children": 200
+            },
+            "runtimeArgs": [
+                "-dxdebug.start_with_request=yes"
+            ],
+            "env": {
+                "XDEBUG_CONFIG": "remote_port=${port}"
+            },
+            "args": [""]
+        },
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:3000",
+            "sourceMaps": true
+            // issue: Need to set breakpoint in the browser for *.vue file
+        },
+        {
+            "name": "Webpack",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/node_modules/webpack/bin/webpack.js",
+            "args": [
+                "--mode",
+                "development",
+                "--watch"
+            ]
+        }
+    ]
+}

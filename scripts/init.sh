@@ -41,7 +41,7 @@ if [[ "$2" == "--new" ]]; then {
     # Add ./scripts, composer.json, .gitignore
     cp -R ${ASW_RES_FOLDER}/starter/scripts/ ./$1/.
     cp ${ASW_RES_FOLDER}/starter/local/composer.json ./$1/.
-    cp ${ASW_RES_FOLDER}/starter/local/.gitignore ./$1/.
+    cp ${ASW_RES_FOLDER}/starter/local/.gitignore-sample ./$1/.gitignore
 
     # Replace placeholder <project_name> with $1
     sed -i "s/<project_name>/$1/g" ./$1/composer.json
