@@ -1,0 +1,22 @@
+# Ignore everyghing except ...
+/*
+!/.cpanel.yml
+!/.gitignore
+!/composer.*
+!/wp-content/
+/wp-content/*
+
+# Scripts
+!/scripts/
+/scripts/update-staging.sh
+
+# Plugins
+!/wp-content/mu-plugins/
+!/wp-content/plugins/
+/wp-content/plugins/*
+!/wp-content/plugins/<plugin_name>
+
+# Themes
+!/wp-content/themes/
+/wp-content/themes/*
+!/wp-content/themes/<theme_name>

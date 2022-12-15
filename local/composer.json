@@ -1,0 +1,29 @@
+{
+  "name": "asw/<project_name>",
+  "description": "Wordpress project",
+  "version": "1.0.1",
+  "type": "project",
+  "license": "MIT",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "prefer-stable": true,
+  "config": {
+    "platform": {
+      "php": "7.4"
+    },
+    "sort-packages": true,
+    "allow-plugins": {
+      "composer/installers": true
+    }
+  },
+  "require-dev": {
+
+  },
+  "require": {
+    
+  }
+}
