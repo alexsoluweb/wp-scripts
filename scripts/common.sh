@@ -46,10 +46,10 @@ function TIME_STOP {
 }
 
 # Default configuration
-if [ -f "${_DIR_}/.env" ]; then
-  source ${_DIR_}/.env
+if [ -f "${_DIR_}/.env.sh" ]; then
+  source ${_DIR_}/.env.sh
 else
-  ERROR "Config not found! Please create ${_DIR_}/.env"
+  ERROR "Config not found! Please create ${_DIR_}/.env.sh"
 fi
 
 # Change to project root directory
@@ -57,5 +57,5 @@ cd ${_DIR_}/..
 
 # Check required environment variables
 if [[ -z "${REMOTE_DOMAIN}" || -z "${LOCAL_DOMAIN}" || -z "${REMOTE_USER}" || -z "${REMOTE_HOST}" || -z "${REMOTE_PATH}" || -z "${REMOTE_PORT}" ]]; then
-  ERROR "Could not determine local and/or remote server environment variables. Please verify ${_DIR_}/.env"
+  ERROR "Could not determine local and/or remote server environment variables. Please verify ${_DIR_}/.env.sh"
 fi

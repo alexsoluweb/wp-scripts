@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Bash-Debug (hardcoded script name)",
 			"cwd": "${workspaceFolder}",
-			"program": "/home/alexgmenard/Scripts/_LWS_RESSOURCE/starter/scripts/init.sh",
+			"program": "/home/alexgmenard/Scripts/ASW_RESSOURCE/starter/scripts/update-local.sh",
 			"args": ["testsite", "--new", "--wp"]
 		},
 	]

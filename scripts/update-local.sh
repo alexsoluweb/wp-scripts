@@ -36,9 +36,18 @@ wp search-replace "https%3A%2F%2F${REMOTE_DOMAIN}" "http%3A%2F%2F${LOCAL_DOMAIN}
 wp search-replace "${REMOTE_DOMAIN}" "${LOCAL_DOMAIN}" --all-tables --skip-plugins --skip-themes
 TIME_STOP
 
-# wp plugin deactivate <plugin_slug>
+# Deactivate plugins
+INFO "Deactivating plugins..."
+TIME_START
+wp plugin deactivate \
+  ithemes-security-pro \
+  wordfence \
+  wp-offload-ses \
+  wp-mail-smtp \
+  wp-rocket \
+TIME_STOP
 
-INFO "Done synchronization with success"
+INFO "Done update with success"
 
 
 
