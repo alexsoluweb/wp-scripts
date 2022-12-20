@@ -1,3 +1,10 @@
+##################################################
+# SYNOPSYS
+##################################################
+# initwww <project_name> --new
+# initwww <project_name> --clone <git_url>
+##################################################
+
 set -e
 
 ASW_RES_FOLDER=/home/${USER}/Scripts/ASW_RESSOURCE
@@ -9,8 +16,6 @@ WORDPRESS_ROOT_DIR=$PWD/${PROJECT_NAME}/${PROJECT_NAME}
 # Validate arguments
 if [[ "${PROJECT_NAME}" == "" || ( "$2" != "--new" && "$2" != "--clone" ) || ( "$2" == "--clone" && "$3" == "" ) ]]; then {
     printf "Error: Invalid command... \n"
-    printf "Valid commands are: \n"
-    printf "initwww project_name --clone ssh_repo_path || --new \n"
     exit
 }
 fi
@@ -33,7 +38,7 @@ fi
 # Init project
 echo "Init project..."
 mkdir -p $ROOT_SERVER/$PROJECT_NAME/$PROJECT_NAME
-cd WORKSPACE_ROOT_DIR 
+cd $WORKSPACE_ROOT_DIR 
 
 # New project
 if [[ "$2" == "--new" ]]; then {   
@@ -54,7 +59,7 @@ if [[ "$2" == "--new" ]]; then {
 fi
 
 # Change directory to Wordpress root directory
-cd WORDPRESS_ROOT_DIR
+cd $WORDPRESS_ROOT_DIR
 
 # Git clone a remote project
 if [[ "$2" == "--clone" ]]; then {
