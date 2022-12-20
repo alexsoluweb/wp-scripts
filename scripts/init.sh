@@ -101,7 +101,7 @@ wp core install --url=${PROJECT_NAME}.localhost --title=${PROJECT_NAME}
 wp config set WP_DEBUG true --raw
 wp config set WP_DEBUG_DISPLAY false --raw
 wp config set SCRIPT_DEBUG true --raw
-wp config set WP_DEBUG_LOG $WORKSPACE_ROOT_DIR/_LOG/wp-error.log --raw
+wp config set WP_DEBUG_LOG $WORKSPACE_ROOT_DIR/_LOG/wp-error.log
 
 echo "Create required wordpress wp-content sub directories..."
 mkdir -p $WORDPRESS_ROOT_DIR/wp-content/plugins
