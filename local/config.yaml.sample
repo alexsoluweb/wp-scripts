@@ -1,0 +1,12 @@
+apache_modules:
+  - mod_rewrite
+
+core config:
+  dbuser: 
+  dbpass: 
+  dbhost: 
+
+core install:
+  admin_user: 
+  admin_password: 
+  admin_email: 

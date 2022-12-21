@@ -49,7 +49,7 @@ if [[ "$2" == "--new" ]]; then {
     # Copy ./scripts, composer.json, .gitignore
     cp -R ${ASW_RES_FOLDER}/scripts/ ./${PROJECT_NAME}/.
     cp ${ASW_RES_FOLDER}/local/composer.json ./${PROJECT_NAME}/.
-    cp ${ASW_RES_FOLDER}/local/.gitignore-sample ./${PROJECT_NAME}/.gitignore
+    cp ${ASW_RES_FOLDER}/local/.gitignore.sample ./${PROJECT_NAME}/.gitignore
 
     # Remove files from copy stuff
     rm -rf ./${PROJECT_NAME}/scripts/init.sh
@@ -76,7 +76,7 @@ mkdir -p $WORKSPACE_ROOT_DIR/_TMP
 mkdir -p $WORKSPACE_ROOT_DIR/.vscode
 
 echo "Copy utils files in $WORKSPACE_ROOT_DIR..."
-cp ${ASW_RES_FOLDER}/local/readme.md .
+cp ${ASW_RES_FOLDER}/local/readme.md.sample ./readme.md
 cp ${ASW_RES_FOLDER}/local/.htaccess .
 cp ${ASW_RES_FOLDER}/local/placeholder.png .
 cp ${ASW_RES_FOLDER}/local/launch.json ../.vscode/launch.json
