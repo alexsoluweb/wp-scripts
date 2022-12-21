@@ -12,6 +12,8 @@ PROJECT_NAME=$1
 ROOT_SERVER=/opt/lampp/htdocs
 WORKSPACE_ROOT_DIR=$PWD/${PROJECT_NAME}
 WORDPRESS_ROOT_DIR=$PWD/${PROJECT_NAME}/${PROJECT_NAME}
+VHOSTS_PATH=/opt/lampp/etc/extra/httpd-vhosts.conf
+HOSTS_PATH=/etc/hosts
 
 # Validate arguments
 if [[ "${PROJECT_NAME}" == "" || ( "$2" != "--new" && "$2" != "--clone" ) || ( "$2" == "--clone" && "$3" == "" ) ]]; then {
@@ -82,14 +84,12 @@ cp ${ASW_RES_FOLDER}/local/launch.json ../.vscode/launch.json
 echo "Replace placeholder in files..."
 sed -i "s/<project_name>/${PROJECT_NAME}/g" ../.vscode/launch.json 
 
-echo "Add vhost-host conf..."
-VHOSTS_PATH=/opt/lampp/etc/extra/httpd-vhosts.conf
-HOSTS_PATH=/etc/hosts
+echo "Add vhost config..."
 if [[ $( grep $PROJECT_NAME.localhost $VHOSTS_PATH ) == "" ]]; then
     cat ${ASW_RES_FOLDER}/local/vhost.conf | sed -e "s/<project_name>/${PROJECT_NAME}/g" | xargs -0  printf '\n%s\n' >> $VHOSTS_PATH
 fi
 if [[ $( grep $PROJECT_NAME.localhost $HOSTS_PATH ) == "" ]]; then
-    cat ${ASW_RES_FOLDER}/local/host.conf | sed -e "s/<project_name>/${PROJECT_NAME}/g" | xargs -0  printf '\n%s\n' >> $HOSTS_PATH
+    echo "127.0.0.1	<project_name>.localhost" | sed -e "s/<project_name>/${PROJECT_NAME}/g" | xargs -0  printf '\n%s\n' >> $HOSTS_PATH
 fi
 
 echo "Install wordpress environment..."
