@@ -1,8 +1,8 @@
 ##################################################
 # SYNOPSYS
 ##################################################
-# initwww <project_name> --new
-# initwww <project_name> --clone <git_url>
+# wpinit <project_name> --new
+# wpinit <project_name> --clone <git_url>
 ##################################################
 
 set -e
@@ -52,7 +52,7 @@ if [[ "$2" == "--new" ]]; then {
     cp ${ASW_RES_FOLDER}/local/.gitignore.sample ./${PROJECT_NAME}/.gitignore
 
     # Remove files from copy stuff
-    rm -rf ./${PROJECT_NAME}/scripts/init.sh
+    rm -rf ./${PROJECT_NAME}/scripts/wp-init.sh
     rm -rf ./${PROJECT_NAME}/scripts/.vscode
 
     # Replace placeholder <project_name> with ${PROJECT_NAME}
