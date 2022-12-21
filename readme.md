@@ -10,26 +10,30 @@ Take a look at ./scripts/init.sh and adapt it to your development environment.
 
 install wp-cli: https://make.wordpress.org/cli/handbook/guides/installing/
 
-## How to use
+## Initial config set up
 
 Fill up the remote congif file in ./scripts/.env.sh
 
-Copy and fill up the wp core config file config.yaml
-@see https://make.wordpress.org/cli/handbook/references/config/
+If you wanna work with ./scripts/init.sh:
+
+Copy the wp core config file (config.yaml)
 ```
 cp ./local/config.yaml.sample ~/.wp-cli/config.yaml
 ```
 
-## Update from remote to local and vice versa
+Fill up the ~/.wp-cli/config.yaml with the appropriate info.
+@see https://make.wordpress.org/cli/handbook/references/config/
 
-In a terminal, position yourself at the Wordpress root directory
-```
-cd /PATH/TO/YOUR/WP/ROOT
-```
+## Update from remote to local and vice versa
 
 Copy the ./scripts folder to your Wordpress Project
 ```
-cp -R ./scripts /PATH/TO/YOUR/WP/ROOT/*
+cp -R ./scripts /PATH/TO/YOUR/WP/ROOT/PROJECT*
+```
+
+In a terminal, position yourself at the Wordpress root directory
+```
+cd /PATH/TO/YOUR/WP/ROOT/PROJECT
 ```
 
 Run a script that suit your need
