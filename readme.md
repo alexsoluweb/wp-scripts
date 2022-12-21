@@ -16,7 +16,7 @@ Fill up the remote congif file in ./scripts/.env.sh
 
 If you wanna work with ./scripts/wp-init.sh:
 
-Copy the wp core config file (config.yaml)
+Copy the wp core config file (config.yaml) to your home directory
 ```
 cp ./local/config.yaml.sample ~/.wp-cli/config.yaml
 ```
@@ -28,10 +28,10 @@ Fill up the ~/.wp-cli/config.yaml with the appropriate info.
 
 Copy the ./scripts folder to your Wordpress Project
 ```
-cp -R ./scripts /PATH/TO/YOUR/WP/ROOT/PROJECT*
+cp -R ./scripts /PATH/TO/YOUR/WP/ROOT/PROJECT/*
 ```
 
-In a terminal, position yourself at the Wordpress root directory
+In a terminal, position yourself at your Wordpress root project directory
 ```
 cd /PATH/TO/YOUR/WP/ROOT/PROJECT
 ```
