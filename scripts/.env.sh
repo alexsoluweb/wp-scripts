@@ -2,11 +2,11 @@
 # CONFIG FILE
 #==========================
 
-# Local server
-# LOCAL_DOMAIN=
+# Local server (optional)
+LOCAL_DOMAIN=
 
 # Remote server
-REMOTE_DOMAIN=giduwgduwguf.com
+REMOTE_DOMAIN=
 REMOTE_USER=
 REMOTE_HOST=
 REMOTE_PATH=
@@ -31,7 +31,7 @@ DB_PASS=''
 DB_PASS=`printf '%q' $DB_PASS`
 
 # Determine local domain if not defined
-if [[ -z "${LOCAL_DOMAIN}" ]]; then
+if [[ -z "${LOCAL_DOMAIN}" || ${LOCAL_DOMAIN} == "" ]]; then
 {
   LOCAL_DOMAIN=${REMOTE_DOMAIN#www.}
   LOCAL_DOMAIN="${LOCAL_DOMAIN%%.*}.${LOCAL_TLD-localhost}"

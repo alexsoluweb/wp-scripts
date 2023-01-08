@@ -23,9 +23,10 @@
   "require-dev": {
     "wpackagist-plugin/loco-translate": "*",
     "wpackagist-plugin/emails-catch-all": "*",
-    "wpackagist-plugin/view-admin-as": "*",
     "wpackagist-plugin/woo-order-test": "*",
-    "wpackagist-plugin/query-monitor": "*"
+    "wpackagist-plugin/query-monitor": "*",
+    "wpackagist-plugin/user-switching": "*",
+    "wpackagist-plugin/wp-crontrol":"*"
   },
   "require": {
     

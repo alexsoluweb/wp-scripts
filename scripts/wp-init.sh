@@ -3,17 +3,25 @@
 ##################################################
 # wpinit <project_name> --new
 # wpinit <project_name> --clone <git_url>
-##################################################
 
-set -e
+##################################################
+# CONFIG
+##################################################
 
 ASW_RES_FOLDER=/home/${USER}/Scripts/ASW_RESSOURCE
 PROJECT_NAME=$1
 ROOT_SERVER=/opt/lampp/htdocs
-WORKSPACE_ROOT_DIR=$PWD/${PROJECT_NAME}
-WORDPRESS_ROOT_DIR=$PWD/${PROJECT_NAME}/${PROJECT_NAME}
+WORKSPACE_ROOT_DIR=$ROOT_SERVER/${PROJECT_NAME}
+WORDPRESS_ROOT_DIR=$ROOT_SERVER/${PROJECT_NAME}/${PROJECT_NAME}
 VHOSTS_PATH=/opt/lampp/etc/extra/httpd-vhosts.conf
 HOSTS_PATH=/etc/hosts
+DB_NAME=wp_${PROJECT_NAME}
+
+##################################################
+# BEGIN SCRIPT
+##################################################
+
+set -e
 
 # Validate arguments
 if [[ "${PROJECT_NAME}" == "" || ( "$2" != "--new" && "$2" != "--clone" ) || ( "$2" == "--clone" && "$3" == "" ) ]]; then {
@@ -93,17 +101,14 @@ if [[ $( grep $PROJECT_NAME.localhost $HOSTS_PATH ) == "" ]]; then
 fi
 
 echo "Install wordpress environment..."
-DB_NAME=wp_${PROJECT_NAME}
-mysql -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME}";
+mysql -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME//-/_}";
 wp core download --force --skip-content
-wp core config --dbname=${DB_NAME}
+wp core config --dbname=${DB_NAME//-/_}
 wp core install --url=${PROJECT_NAME}.localhost --title=${PROJECT_NAME}
 wp config set WP_DEBUG true --raw
 wp config set WP_DEBUG_DISPLAY false --raw
 wp config set SCRIPT_DEBUG true --raw
 wp config set WP_DEBUG_LOG $WORKSPACE_ROOT_DIR/_LOG/wp-error.log
-
-echo "Create required wordpress wp-content sub directories..."
 mkdir -p $WORDPRESS_ROOT_DIR/wp-content/plugins
 mkdir -p $WORDPRESS_ROOT_DIR/wp-content/themes
 mkdir -p $WORDPRESS_ROOT_DIR/wp-content/uploads
