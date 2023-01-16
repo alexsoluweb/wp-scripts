@@ -8,7 +8,6 @@
 
 # Scripts
 !/scripts/
-/scripts/update-staging.sh
 
 # Plugins
 !/wp-content/mu-plugins/
