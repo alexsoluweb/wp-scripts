@@ -15,7 +15,7 @@ set -e
 user=""
 pass=""
 host=""
-port_number="21"
+port="21"
 
 # Local directories to mirror
 local_dirs=("/opt/lampp/htdocs/path")
@@ -44,10 +44,10 @@ do
 
   if [ "$update_direction" == "remote" ]; then
     # Connect to the FTP server and mirror the local directory to the remote directory
-    lftp -e "set ssl:verify-certificate $ssl_option; open -p $port_number $host; mirror -R --only-newer --delete $local_dir '$remote_server'$remote_dir; quit"
+    lftp -e "set ssl:verify-certificate $ssl_option; open -p $port $host; mirror -R --only-newer --delete $local_dir '$remote_server'$remote_dir; quit"
   elif [ "$update_direction" == "local" ]; then
     # Connect to the FTP server and mirror the remote directory to the local directory
-    lftp -e "set ssl:verify-certificate $ssl_option; open -p $port_number $host; mirror -R --only-newer --delete '$remote_server'$remote_dir $local_dir; quit"
+    lftp -e "set ssl:verify-certificate $ssl_option; open -p $port $host; mirror -R --only-newer --delete '$remote_server'$remote_dir $local_dir; quit"
   else
     # Print error message if update direction is not specified or invalid
     echo -e "\033[31mError: Invalid update direction specified. Please specify 'remote' or 'local'.\033[0m"
