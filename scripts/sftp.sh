@@ -5,7 +5,7 @@ set -e
 # SYNOPSYS
 #=================================================
 
-# ./lftp.sh <remote|local>
+# ./sftp.sh <remote|local>
 
 #=================================================
 # CONFIG
@@ -17,11 +17,11 @@ pass=""
 host=""
 port="22"
 
-# Local directories to mirror
-local_dirs=("/opt/lampp/htdocs/path")
+# Local directories to mirror (relative path)
+local_dirs=("./<relative_path>")
 
 # Remote directories to mirror
-remote_dirs=("/public_html")
+remote_dirs=("/home/$user/<absolute_path>")
 
 #=================================================
 # Begin Script
@@ -31,7 +31,7 @@ remote_dirs=("/public_html")
 update_direction=$1
 
 # Define the remote server URL
-remote_server="sftp://$user:$pass@$host"
+remote_server="sftp://$user:'$pass'@$host:$port"
 
 # Use a for loop to update each directory
 for i in "${!local_dirs[@]}"
@@ -41,10 +41,10 @@ do
 
   if [ "$update_direction" == "remote" ]; then
     # Connect to the SFTP server and mirror the local directory to the remote directory
-    lftp -u $user,"$pass" -p $port sftp://$host -e "set sftp:auto-confirm yes; mirror -R --only-newer --delete $local_dir '$remote_server'$remote_dir; quit"
+    lftp -u $user,"$pass" -p $port sftp://$host -e "set sftp:auto-confirm yes; mirror -R --only-newer --delete ${local_dirs%/} ${remote_dirs%/}; quit"
   elif [ "$update_direction" == "local" ]; then
     # Connect to the SFTP server and mirror the remote directory to the local directory
-    lftp -u $user,"$pass" -p $port sftp://$host -e "set sftp:auto-confirm yes; mirror -R --only-newer --delete '$remote_server'$remote_dir $local_dir; quit"
+    lftp -u $user,"$pass" -p $port sftp://$host -e "set sftp:auto-confirm yes; mirror --only-newer --delete ${remote_dirs%/} ${local_dirs%/}; quit"
   else
     # Print error message if update direction is not specified or invalid
     echo -e "\033[31mError: Invalid update direction specified. Please specify 'remote' or 'local'.\033[0m"
