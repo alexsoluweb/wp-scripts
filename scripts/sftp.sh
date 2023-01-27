@@ -30,9 +30,6 @@ remote_dirs=("/home/$user/<absolute_path>")
 # Get the update direction from the command line argument
 update_direction=$1
 
-# Define the remote server URL
-remote_server="sftp://$user:'$pass'@$host:$port"
-
 # Use a for loop to update each directory
 for i in "${!local_dirs[@]}"
 do
