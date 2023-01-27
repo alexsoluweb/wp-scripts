@@ -1,4 +1,4 @@
-# If no image found, replace with placeholder
+# If no image found, replace with placeholder.png
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteCond %{REQUEST_URI} ^/wp-content/uploads/.*\.(png|jpg|jpeg|svg|gif|webp)$ [NC]
@@ -6,7 +6,18 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule .? placeholder.png [L]
 </IfModule>
 
+# Check if request is for favicon.ico 
+# and file does not exist return an empty 200 response
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_URI} favicon\.ico [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule .* - [L,R=200]
+</IfModule>
+
 # BEGIN WordPress
+# Redirect all requests to the index.php file, 
+# unless the request is for a file or directory that already exists on the server. 
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

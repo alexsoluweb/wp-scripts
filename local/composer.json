@@ -10,6 +10,7 @@
       "url": "https://wpackagist.org"
     }
   ],
+  "minimum-stability" : "dev",
   "prefer-stable": true,
   "config": {
     "platform": {
@@ -26,9 +27,10 @@
     "wpackagist-plugin/woo-order-test": "*",
     "wpackagist-plugin/query-monitor": "*",
     "wpackagist-plugin/user-switching": "*",
-    "wpackagist-plugin/wp-crontrol":"*"
+    "wpackagist-plugin/wp-crontrol":"*",
+    "wpackagist-plugin/easy-populate-posts":"*"
   },
   "require": {
-    
+    "wpackagist-plugin/all-in-one-wp-security-and-firewall": "*"
   }
 }
