@@ -83,6 +83,7 @@ fi
 echo "Create utils directories..."
 mkdir -p $WORKSPACE_ROOT_DIR/_LOG
 mkdir -p $WORKSPACE_ROOT_DIR/_TMP
+mkdir -p $WORKSPACE_ROOT_DIR/_BACKUPS
 mkdir -p $WORKSPACE_ROOT_DIR/.vscode
 
 echo "Copy utils files in $WORKSPACE_ROOT_DIR..."

@@ -2,6 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
+            // XDebug
             "name": "XDebug",
             "type": "php",
             "request": "launch",
@@ -14,7 +15,8 @@
             "maxConnections": 1
         },
         {
-            "name": "Launch currently open script with Xdebug",
+            // Xdebug currently open Script
+            "name": "Xdebug Open Script",
             "type": "php",
             "request": "launch",
             "program": "${file}",
@@ -34,18 +36,27 @@
             "args": [""]
         },
         {
-            "name": "Launch Chrome",
-            "request": "launch",
+            // Debug JS files
+            "name": "Debug JS",
             "type": "chrome",
+            "request": "launch",
             "url": "http://localhost:3000",
-            "sourceMaps": true
-            // issue: Need to set breakpoint in the browser for *.vue file
+            "runtimeArgs": [
+                "--remote-debugging-port=9222"
+            ],
+            "port": 9222,
+            "webRoot": "${workspaceFolder}/path/to/my/project",
+            "pathMapping": {
+                "/": "${workspaceFolder}/path/to/wordpress/root"
+            }
         },
         {
-            "name": "Webpack",
+            // Debug Webpack in the project
+            "name": "Debug Webpack",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceFolder}/node_modules/webpack/bin/webpack.js",
+            "cwd": "${workspaceFolder}/path/to/my/project",
+            "program": "./node_modules/webpack/bin/webpack.js",
             "args": [
                 "--mode",
                 "development",

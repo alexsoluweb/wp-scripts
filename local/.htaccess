@@ -1,31 +1,38 @@
 # If no image found, replace with placeholder.png
 <IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteCond %{REQUEST_URI} ^/wp-content/uploads/.*\.(png|jpg|jpeg|svg|gif|webp)$ [NC]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule .? placeholder.png [L]
+	RewriteEngine On
+	RewriteCond %{REQUEST_URI} ^/wp-content/uploads/.*\.(png|jpg|jpeg|svg|gif|webp)$ [NC]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule .? placeholder.png [L]
 </IfModule>
 
-# Check if request is for favicon.ico 
-# and file does not exist return an empty 200 response
+# Allow CORS for localhost:3000
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "http://localhost:3000"
+</IfModule>
+
+# Check if request is for favicon.ico or sourcemap
+# and if file does not exist then return empty 200
 <IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteCond %{REQUEST_URI} favicon\.ico [NC]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule .* - [L,R=200]
+	RewriteEngine On
+	RewriteCond %{REQUEST_URI} ^.*\.(map|ico)$ [NC]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule .* - [L,R=200]
 </IfModule>
 
 # BEGIN WordPress
-# Redirect all requests to the index.php file, 
-# unless the request is for a file or directory that already exists on the server. 
+# Les directives (lignes) entre « BEGIN WordPress » et « END WordPress » sont générées
+# dynamiquement et doivent uniquement être modifiées via les filtres de WordPress.
+# Toute modification des directives situées entre ces marqueurs sera surchargée.
 <IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-RewriteBase /
-RewriteRule ^index\.php$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.php [L]
+	RewriteEngine On
+	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+	RewriteBase /
+	RewriteRule ^index\.php$ - [L]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule . /index.php [L]
 </IfModule>
+
 # END WordPress
 

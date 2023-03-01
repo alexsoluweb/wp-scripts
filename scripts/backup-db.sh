@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-DB_DIR=_db_backups
+DB_DIR=../_BACKUPS
 _NOW_=`date +"%Y-%m-%d@%H:%M"`
 DB_FILENAME="${_NOW_}.sql"
 mkdir -p ${DB_DIR}
