@@ -3,6 +3,7 @@
 !/.cpanel.yml
 !/.gitignore
 !/composer.*
+!readme.md
 !/wp-content/
 /wp-content/*
 

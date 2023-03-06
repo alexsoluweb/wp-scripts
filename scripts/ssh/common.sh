@@ -3,7 +3,7 @@ set -e
 
 _DIR_=`dirname "$(readlink -f "$0")"`
 _FILE_=`basename $0`
-_NOW_=`date +"%Y-%m-%d@%H:%M"`
+_NOW_=`date +"%Y-%m-%d__%H-%M"`
 _DB_FILENAME_=${_NOW_}.sql
 
 # Helpers
@@ -46,22 +46,14 @@ function TIME_STOP {
 }
 
 # Default configuration
-if [ -f "${_DIR_}/.env.sh" ]; then
-  source ${_DIR_}/.env.sh
+if [ -f "$_DIR_/.env.sh" ]; then
+  source $_DIR_/.env.sh
 else
-  ERROR "Config not found! Please create ${_DIR_}/.env.sh"
+  ERROR "Config not found! Please create $_DIR_/.env.sh"
 fi
 
-# Change to project root directory
-cd ${_DIR_}/..
-
-# Determine local domain if not defined
-if [[ -z "${LOCAL_DOMAIN}" || ${LOCAL_DOMAIN} == "" ]]; then
-{
-  LOCAL_DOMAIN=${REMOTE_DOMAIN#www.}
-  LOCAL_DOMAIN="${LOCAL_DOMAIN%%.*}.${LOCAL_TLD-localhost}"
-}
-fi
+# Change to Wordpress root directory
+cd $_DIR_/../..
 
 # Check required environment variables
 if [[ -z "${REMOTE_DOMAIN}" || -z "${LOCAL_DOMAIN}" || -z "${REMOTE_USER}" || -z "${REMOTE_HOST}" || -z "${REMOTE_PATH}" || -z "${REMOTE_PORT}" ]]; then

@@ -91,6 +91,7 @@ cp ${ASW_RES_FOLDER}/local/readme.md.sample ./readme.md
 cp ${ASW_RES_FOLDER}/local/.htaccess .
 cp ${ASW_RES_FOLDER}/local/placeholder.png .
 cp ${ASW_RES_FOLDER}/local/launch.json ../.vscode/launch.json
+cp -R ${ASW_RES_FOLDER}/local/_DOC ../_DOC/
 
 echo "Replace placeholder in files..."
 sed -i "s/<project_name>/${PROJECT_NAME}/g" ../.vscode/launch.json 

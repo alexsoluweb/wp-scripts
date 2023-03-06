@@ -3,26 +3,13 @@ set -e
 source "`dirname $0`/common.sh"
 
 #---------------------------------------------------
-# Configuration
-#---------------------------------------------------
-
-# Local server (optional)
-LOCAL_DOMAIN=''
-
-# Remote server
-REMOTE_DOMAIN=''
-
-# Exported database name
-DB_NAME=''
-
-#---------------------------------------------------
-# Main
+# Begin Script
 #---------------------------------------------------
 
 # Synchronize databases
 INFO "Synchronizing database..."
 TIME_START
-cat ../_BACKUPS/$DB_NAME | wp db import - 
+cat $DB_PATH | wp db import - 
 TIME_STOP
 
 # Replace domain
@@ -36,16 +23,26 @@ TIME_STOP
 
 # Deactivate plugins
 INFO "Deactivating plugins..."
-TIME_START
 wp plugin deactivate \
+  --allow-root \
+  --skip-plugins \
+  --skip-themes \
+  better-wp-security \
   ithemes-security-pro \
   all-in-one-wp-security-and-firewall \
   wordfence \
   wp-offload-ses \
   wp-mail-smtp \
+  wp-mail-smtp-pro \
   wp-rocket \
+  lite-speed-cache \
   login-lockdown \
   akismet \
-TIME_STOP
+  wp-super-cache \
+  wp-super-minify \
+  wp-fastest-cache \
+  wp-fastest-cache-premium \
+  worker \
+
 
 INFO "Done update with success"

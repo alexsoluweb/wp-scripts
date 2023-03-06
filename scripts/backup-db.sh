@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
+_NOW_=`date +"%Y-%m-%d__%H-%M"`
+
 DB_DIR=../_BACKUPS
-_NOW_=`date +"%Y-%m-%d@%H:%M"`
 DB_FILENAME="${_NOW_}.sql"
+
 mkdir -p ${DB_DIR}
 
 # Backup database

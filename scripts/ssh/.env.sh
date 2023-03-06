@@ -1,5 +1,5 @@
 #==========================
-# CONFIG FILE
+# GLOBAL CONFIG FILE
 #==========================
 
 # Local server
@@ -11,13 +11,6 @@ REMOTE_USER=''
 REMOTE_PASS=''
 REMOTE_HOST=''
 REMOTE_PATH=''
-REMOTE_PORT=''
+REMOTE_PORT='22'
 
-# Remote Wordpress dev (optional)
-WP_ADMIN_USER=''
-WP_ADMIN_EMAIL=''
-WP_ADMIN_PASS=''
-WP_PREFIX=''
-DB_NAME=''
-DB_USER=''
-DB_PASS=''
+

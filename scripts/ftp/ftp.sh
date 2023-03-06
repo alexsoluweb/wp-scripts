@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+source "`dirname $0`/common.sh"
 
 #=================================================
 # SYNOPSYS
@@ -12,31 +13,6 @@ set -e
 # yes: use ssl
 # no: don't use ssl
 # dry-run: dry run
-
-#=================================================
-# CONFIG
-#=================================================
-
-# Define the FTP login credentials
-user=''
-pass=''
-host=''
-port_number='21'
-
-# Local directories to mirror
-local_dirs="/opt/lampp/htdocs/<path>"
-
-# Remote directories to mirror
-remote_dirs="/<path>"
-
-# Project path for yarn build
-project_path='/opt/lampp/htdocs/<path>'
-
-# Exclude build files regex
-exclude_files='.*node_modules\/.*|.*\.git\/.*|.*composer\..*|.*package\..*|.*\.gitignore|.*webpack\.config\..*|.*yarn\..*|.*postcss\.config\..*|.*tailwind\.config\..*|tsconfig\.json'
-
-# Dry run output file
-dry_run_output_file="$PWD/../_LOG/ftp-dry-run.log"
 
 #=================================================
 # Begin Script
