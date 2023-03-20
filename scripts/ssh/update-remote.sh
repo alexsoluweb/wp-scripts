@@ -12,9 +12,9 @@ source "`dirname $0`/common.sh"
 #================================================================
 
 
-# Check required environment variables
-if [[ -z "$REMOTE_DOMAIN" || -z "$LOCAL_DOMAIN" || -z "$REMOTE_USER" || -z "$REMOTE_HOST" || -z "$REMOTE_PATH" || -z "$REMOTE_PORT" ]]; then
-  ERROR "Could not determine local and/or remote server environment variables. Please verify $_DIR_/.env.sh"
+# Check required script variables
+if [[ -z "$REMOTE_BACKUP_SOURCE_PATH" || -z "$REMOTE_BACKUP_DEST_PATH" ]]; then
+  ERROR "Could not determine backup environment variables. Please verify $_DIR_/.env.sh"
 fi
 
 
