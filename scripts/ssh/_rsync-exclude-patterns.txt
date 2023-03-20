@@ -1,0 +1,11 @@
+node_modules/
+.git/
+composer.*
+package.*
+.gitignore
+webpack.config.*
+yarn.*
+postcss.config.*
+tailwind.config.*
+tsconfig.json
+*.md'

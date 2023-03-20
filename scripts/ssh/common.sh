@@ -54,8 +54,3 @@ fi
 
 # Change to Wordpress root directory
 cd $_DIR_/../..
-
-# Check required environment variables
-if [[ -z "${REMOTE_DOMAIN}" || -z "${LOCAL_DOMAIN}" || -z "${REMOTE_USER}" || -z "${REMOTE_HOST}" || -z "${REMOTE_PATH}" || -z "${REMOTE_PORT}" ]]; then
-  ERROR "Could not determine local and/or remote server environment variables. Please verify ${_DIR_}/.env.sh"
-fi

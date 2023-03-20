@@ -28,8 +28,8 @@ project_path=''
 
 #=================================================
 
-# Exclude build files regex
-exclude_files='.*node_modules\/.*|.*\.git\/.*|.*composer\..*|.*package\..*|.*\.gitignore|.*webpack\.config\..*|.*yarn\..*|.*postcss\.config\..*|.*tailwind\.config\..*|tsconfig\.json'
+# Excluded files regex (local to remote for lftp mirror command)
+exclude_files='.*node_modules\/.*|.*\.git\/.*|.*composer\..*|.*package\..*|.*\.gitignore|.*webpack\.config\..*|.*yarn\..*|.*postcss\.config\..*|.*tailwind\.config\..*|tsconfig\.json|.*\.md'
 
 # Dry run output file
 dry_run_output_file="$PWD/../_LOG/ftp-dry-run.log"

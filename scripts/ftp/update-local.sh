@@ -43,6 +43,7 @@ wp plugin deactivate \
   wp-fastest-cache \
   wp-fastest-cache-premium \
   worker \
+  google-site-kit \
 
 
 INFO "Done update with success"
