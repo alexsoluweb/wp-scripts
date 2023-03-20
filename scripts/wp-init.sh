@@ -4,47 +4,43 @@ set -e
 #=================================================
 # SYNOPSYS
 #=================================================
-
-# wpinit <project_name> --new
-# wpinit <project_name> --clone <git_url>
+# This script is used to init a new Wordpress project.
+#
+# usage:
+# ./wp-init.sh <project_name> --new
+# ./wp-init.sh <project_name> --clone <git_url>
+#=================================================
 
 #=================================================
 # CONFIG
 #=================================================
-
-ASW_RES_FOLDER=/home/${USER}/Scripts/ASW_RESSOURCE
+ASW_RES_FOLDER=/home/$USER/Scripts/ASW_RESSOURCE
 PROJECT_NAME=$1
 ROOT_SERVER=/opt/lampp/htdocs
-WORKSPACE_ROOT_DIR=$ROOT_SERVER/${PROJECT_NAME}
-WORDPRESS_ROOT_DIR=$ROOT_SERVER/${PROJECT_NAME}/${PROJECT_NAME}
+WORKSPACE_ROOT_DIR=$ROOT_SERVER/$PROJECT_NAME
+WORDPRESS_ROOT_DIR=$ROOT_SERVER/$PROJECT_NAME/$PROJECT_NAME
 VHOSTS_PATH=/opt/lampp/etc/extra/httpd-vhosts.conf
 HOSTS_PATH=/etc/hosts
-DB_NAME=wp_${PROJECT_NAME}
-
-#=================================================
-# Begin Script
+DB_NAME=wp_$PROJECT_NAME
 #=================================================
 
 # Validate arguments
-if [[ "${PROJECT_NAME}" == "" || ( "$2" != "--new" && "$2" != "--clone" ) || ( "$2" == "--clone" && "$3" == "" ) ]]; then {
+if [[ "$PROJECT_NAME" == "" || ( "$2" != "--new" && "$2" != "--clone" ) || ( "$2" == "--clone" && "$3" == "" ) ]]; then 
     printf "Error: Invalid command... \n"
     exit
-}
+
 fi
 
 # Validate git remote repository
-if [[ "$2" == "--clone" ]]; then {
-    printf "Validate git remote repository ${3}... \n";
+if [[ "$2" == "--clone" ]]; then 
+    printf "Validate git remote repository $3... \n";
     mkdir -p ~/Tmp/gitclone && cd ~/Tmp/gitclone
-    if git clone --quiet $3; then {
+    if git clone --quiet $3; then 
         printf "Found git remote repository. \n"
         rm -rf ~/Tmp/gitclone
-    }
-    else { 
+    else  
         rm -rf ~/Tmp/gitclone && exit
-    }
     fi
-}
 fi
 
 # Init project
@@ -53,31 +49,26 @@ mkdir -p $ROOT_SERVER/$PROJECT_NAME/$PROJECT_NAME
 cd $WORKSPACE_ROOT_DIR 
 
 # New project
-if [[ "$2" == "--new" ]]; then {   
+if [[ "$2" == "--new" ]]; then    
     echo "Create new project..."
-
     # Copy ./scripts, composer.json, .gitignore
-    cp -R ${ASW_RES_FOLDER}/scripts/ ./${PROJECT_NAME}/.
-    cp ${ASW_RES_FOLDER}/local/composer.json ./${PROJECT_NAME}/.
-    cp ${ASW_RES_FOLDER}/local/.gitignore.sample ./${PROJECT_NAME}/.gitignore
-
+    cp -R $ASW_RES_FOLDER/scripts/ ./$PROJECT_NAME/.
+    cp $ASW_RES_FOLDER/local/composer.json ./$PROJECT_NAME/.
+    cp $ASW_RES_FOLDER/local/.gitignore.sample ./$PROJECT_NAME/.gitignore
     # Remove files from copy stuff
-    rm -rf ./${PROJECT_NAME}/scripts/wp-init.sh
-    rm -rf ./${PROJECT_NAME}/scripts/.vscode
-
-    # Replace placeholder <project_name> with ${PROJECT_NAME}
-    sed -i "s/<project_name>/${PROJECT_NAME}/g" ./${PROJECT_NAME}/composer.json
-}
+    rm -rf ./$PROJECT_NAME/scripts/wp-init.sh
+    rm -rf ./$PROJECT_NAME/scripts/.vscode
+    # Replace placeholder <project_name> with $PROJECT_NAME
+    sed -i "s/<project_name>/$PROJECT_NAME/g" ./$PROJECT_NAME/composer.json
 fi
 
 # Change directory to Wordpress root directory
 cd $WORDPRESS_ROOT_DIR
 
 # Git clone a remote project
-if [[ "$2" == "--clone" ]]; then {
-    echo "Clone project from ${3}..."
-    git clone ${3} .
-}
+if [[ "$2" == "--clone" ]]; then 
+    echo "Clone project from $3..."
+    git clone $3 .
 fi
 
 echo "Create utils directories..."
@@ -87,28 +78,28 @@ mkdir -p $WORKSPACE_ROOT_DIR/_BACKUPS
 mkdir -p $WORKSPACE_ROOT_DIR/.vscode
 
 echo "Copy utils files in $WORKSPACE_ROOT_DIR..."
-cp ${ASW_RES_FOLDER}/local/readme.md.sample ./readme.md
-cp ${ASW_RES_FOLDER}/local/.htaccess .
-cp ${ASW_RES_FOLDER}/local/placeholder.png .
-cp ${ASW_RES_FOLDER}/local/launch.json ../.vscode/launch.json
-cp -R ${ASW_RES_FOLDER}/local/_DOC ../_DOC/
+cp $ASW_RES_FOLDER/local/readme.md.sample ./readme.md
+cp $ASW_RES_FOLDER/local/.htaccess .
+cp $ASW_RES_FOLDER/local/placeholder.png .
+cp $ASW_RES_FOLDER/local/launch.json ../.vscode/launch.json
+cp -R $ASW_RES_FOLDER/local/_DOC ../_DOC/
 
 echo "Replace placeholder in files..."
-sed -i "s/<project_name>/${PROJECT_NAME}/g" ../.vscode/launch.json 
+sed -i "s/<project_name>/$PROJECT_NAME/g" ../.vscode/launch.json 
 
 echo "Add vhost config..."
 if [[ $( grep $PROJECT_NAME.localhost $VHOSTS_PATH ) == "" ]]; then
-    cat ${ASW_RES_FOLDER}/local/vhost.conf | sed -e "s/<project_name>/${PROJECT_NAME}/g" | xargs -0  printf '\n%s\n' >> $VHOSTS_PATH
+    cat $ASW_RES_FOLDER/local/vhost.conf | sed -e "s/<project_name>/$PROJECT_NAME/g" | xargs -0  printf '\n%s\n' >> $VHOSTS_PATH
 fi
 if [[ $( grep $PROJECT_NAME.localhost $HOSTS_PATH ) == "" ]]; then
-    echo "127.0.0.1	<project_name>.localhost" | sed -e "s/<project_name>/${PROJECT_NAME}/g" | xargs -0  printf '\n%s\n' >> $HOSTS_PATH
+    echo "127.0.0.1	<project_name>.localhost" | sed -e "s/<project_name>/$PROJECT_NAME/g" | xargs -0  printf '\n%s\n' >> $HOSTS_PATH
 fi
 
 echo "Install wordpress environment..."
-mysql -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME//-/_}";
+mysql -e "CREATE DATABASE IF NOT EXISTS $DB_NAME//-/_";
 wp core download --force --skip-content
-wp core config --dbname=${DB_NAME//-/_}
-wp core install --url=${PROJECT_NAME}.localhost --title=${PROJECT_NAME}
+wp core config --dbname=$DB_NAME//-/_
+wp core install --url=$PROJECT_NAME.localhost --title=$PROJECT_NAME
 wp config set WP_DEBUG true --raw
 wp config set WP_DEBUG_DISPLAY false --raw
 wp config set SCRIPT_DEBUG true --raw
@@ -118,9 +109,8 @@ mkdir -p $WORDPRESS_ROOT_DIR/wp-content/themes
 mkdir -p $WORDPRESS_ROOT_DIR/wp-content/uploads
 
 echo "Install composer dependencies..."
-if [[ -f "$WORDPRESS_ROOT_DIR/composer.json" ]]; then {
+if [[ -f "$WORDPRESS_ROOT_DIR/composer.json" ]]; then 
     composer update
-}
 fi
 
 echo "Restart server..."
@@ -129,4 +119,4 @@ sudo /opt/lampp/lampp restart
 echo "Open vscode..."
 code $WORKSPACE_ROOT_DIR
 
-echo "Site ready at http://${PROJECT_NAME}.$LOCAL_TLD"
+echo "Site ready at http://$PROJECT_NAME.$LOCAL_TLD"

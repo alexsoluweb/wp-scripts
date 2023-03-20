@@ -10,27 +10,26 @@ REMOTE_DOMAIN=''
 DB_PATH=''
 
 # (S)FTP login credentials
-user=''
-pass=''
-host=''
+USER=''
+PASS=''
+HOST=''
 # FTP default port 21, SFTP default port 22
-port='21' 
+PORT='21' 
 
 # (S)FTP local directory to mirror (absolute path)
-local_dirs=''
-
+LOCAL_DIRS=''
 # (S)FTP remote directory to mirror (absolute path from ftp root folder)
-remote_dirs=''
+REMOTE_DIRS=''
 
 # Project path for yarn --cwd build command (absolute path)
-project_path=''
+BUILD_PATH=''
 
 
 #=================================================
 
 # Excluded files regex (local to remote for lftp mirror command)
-exclude_files='.*node_modules\/.*|.*\.git\/.*|.*composer\..*|.*package\..*|.*\.gitignore|.*webpack\.config\..*|.*yarn\..*|.*postcss\.config\..*|.*tailwind\.config\..*|tsconfig\.json|.*\.md'
+EXCLUDE_FILES='.*node_modules\/.*|.*\.git\/.*|.*composer\..*|.*package\..*|.*\.gitignore|.*webpack\.config\..*|.*yarn\..*|.*postcss\.config\..*|.*tailwind\.config\..*|tsconfig\.json|.*\.md'
 
 # Dry run output file
-dry_run_output_file="$PWD/../_LOG/ftp-dry-run.log"
+DRY_RUN_LOG_PATH="$PWD/../_LOG/ftp-dry-run.log"
 

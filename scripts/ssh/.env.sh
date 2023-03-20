@@ -27,9 +27,3 @@ REMOTE_BACKUP_SOURCE_PATH=''
 REMOTE_BACKUP_DEST_PATH=''
 
 #==========================
-
-# Excluded files regex (local to remote for rsync command)
-exclude_files='.*node_modules\/.*|.*\.git\/.*|.*composer\..*|.*package\..*|.*\.gitignore|.*webpack\.config\..*|.*yarn\..*|.*postcss\.config\..*|.*tailwind\.config\..*|tsconfig\.json|.*\.md'
-
-
-

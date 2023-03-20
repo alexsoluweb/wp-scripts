@@ -5,7 +5,9 @@ source "`dirname $0`/common.sh"
 #=================================================
 # SYNOPSYS
 #=================================================
-# This script is used to mirror local and remote directories
+# This script is used to mirror local and remote 
+# directories with the ftp protocol.
+#
 # usage: ./ftp.sh <remote|local|test> <yes|no> [dry-run]
 # remote: mirror local to remote
 # local: mirror remote to local
@@ -13,9 +15,6 @@ source "`dirname $0`/common.sh"
 # yes: use ssl
 # no: don't use ssl
 # dry-run: dry run
-
-#=================================================
-# Begin Script
 #=================================================
 
 
@@ -37,7 +36,7 @@ if [[ "$3" != "" && "$3" != "dry-run" ]]; then
   exit 1
 fi
 
-remote_server="ftp://$user:$pass@$host:$port_number"
+remote_server="ftp://$USER:$PASS@$HOST:$PORT"
 ssl_option=$2
 
 # Test the connection
@@ -54,23 +53,23 @@ remote_dir="${remote_dirs%/}/"
 if [ "$update_direction" == "remote" ]; then
 
   # Build the project
-  if [ "$project_path" != "" ]; then
-    yarn --cwd $project_path build
+  if [ "$BUILD_PATH" != "" ]; then
+    yarn --cwd $BUILD_PATH build
   fi
   
   if [ "$3" == "dry-run" ]; then
     echo "Dry run mode is enabled"
-    lftp -e "set ssl:verify-certificate $ssl_option; mirror --dry-run -R --delete --only-newer --exclude='$exclude_files' $local_dirs $remote_server$remote_dirs; quit" > $dry_run_output_file
+    lftp -e "set ssl:verify-certificate $ssl_option; mirror --dry-run -R --delete --only-newer --exclude='$EXCLUDE_FILES' $LOCAL_DIRS $remote_server$REMOTE_DIRS; quit" > $DRY_RUN_LOG_PATH
   else
-    echo "Updating from local path:$local_dirs to remote path:$remote_dirs ..."
-    lftp -e "set ssl:verify-certificate $ssl_option; mirror -R --delete --only-newer --exclude='$exclude_files' $local_dirs $remote_server$remote_dirs; quit"
+    echo "Updating from local path:$LOCAL_DIRS to remote path:$REMOTE_DIRS ..."
+    lftp -e "set ssl:verify-certificate $ssl_option; mirror -R --delete --only-newer --exclude='$EXCLUDE_FILES' $LOCAL_DIRS $remote_server$REMOTE_DIRS; quit"
   fi
   exit 0
 fi
     
 # Update the local
 if [ "$update_direction" == "local" ]; then
-  echo "Updating from remote path:$remote_dirs to local path:$local_dirs ..."
-  lftp -e  "set ssl:verify-certificate $ssl_option; mirror --delete --only-newer $remote_server$remote_dirs $local_dirs; quit"
+  echo "Updating from remote path:$REMOTE_DIRS to local path:$LOCAL_DIRS ..."
+  lftp -e  "set ssl:verify-certificate $ssl_option; mirror --delete --only-newer $remote_server$REMOTE_DIRS $LOCAL_DIRS; quit"
   exit 0
 fi
