@@ -13,6 +13,13 @@ REMOTE_HOST=''
 REMOTE_PATH=''
 REMOTE_PORT='22'
 
+# Remote alexsoluweb
+# REMOTE_DOMAIN='<project_name>.alexsoluweb.digital'
+# REMOTE_USER='imemdsko'
+# REMOTE_HOST='alexsoluweb.digital'
+# REMOTE_PATH='/home/imemdsko/<project_name>.alexsoluweb.digital'
+# REMOTE_PORT='21098'
+
 # Remote Wordpress config (optional)
 WP_ADMIN_USER=''
 WP_ADMIN_EMAIL=''

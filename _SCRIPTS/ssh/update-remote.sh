@@ -47,15 +47,9 @@ fi
 # Update database
 INFO "Updating database..."
 if [ -n "$REMOTE_PASS" ]; then
-	wp db export tmp.sql --allow-root --skip-plugins --skip-themes --add-drop-table
-	sshpass -p $REMOTE_PASS scp -P $REMOTE_PORT tmp.sql $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
-	sshpass -p $REMOTE_PASS ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "cd $REMOTE_PATH; wp db import tmp.sql"
-	sshpass -p $REMOTE_PASS ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "rm -f $REMOTE_PATH/tmp.sql" && rm -f tmp.sql
+	wp db export - --allow-root --skip-plugins --skip-themes --add-drop-table | sshpass -p $REMOTE_PASS ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "cd $REMOTE_PATH; wp db import -"
 else
-	wp db export tmp.sql --allow-root --skip-plugins --skip-themes --add-drop-table
-	scp -p $REMOTE_PORT tmp.sql $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
-	ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "cd $REMOTE_PATH; wp db import tmp.sql"
-	ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "rm -f $REMOTE_PATH/tmp.sql" && rm -f tmp.sql
+	wp db export - --allow-root --skip-plugins --skip-themes --add-drop-table | ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "cd $REMOTE_PATH; wp db import -"
 fi
 
 

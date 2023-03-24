@@ -28,16 +28,12 @@ else
   rsync -ave "ssh -p $REMOTE_PORT" $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/wp-content/languages/ wp-content/languages/ --delete
 fi
 
-# Synchronize database
-INFO "Synchronizing database..."
+# Update database
+INFO "Updating database..."
 if [ -n "$REMOTE_PASS" ]; then
-  sshpass -p $REMOTE_PASS ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "cd $REMOTE_PATH && wp db export tmp.sql --allow-root --skip-plugins --skip-themes --add-drop-table" 
-  sshpass -p $REMOTE_PASS ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "cat $REMOTE_PATH/tmp.sql" | wp db import - 
-  sshpass -p $REMOTE_PASS ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "rm -f $REMOTE_PATH/tmp.sql" 
+  sshpass -p $REMOTE_PASS ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "cd $REMOTE_PATH && wp db export - --allow-root --skip-plugins --skip-themes --add-drop-table" | wp db import -
 else
-  ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "cd $REMOTE_PATH && wp db export tmp.sql --allow-root --skip-plugins --skip-themes --add-drop-table" 
-  ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "cat $REMOTE_PATH/tmp.sql" | wp db import - 
-  ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "rm -f $REMOTE_PATH/tmp.sql"
+  ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_HOST "cd $REMOTE_PATH && wp db export - --allow-root --skip-plugins --skip-themes --add-drop-table" | wp db import -
 fi
 
 # Replace domain
